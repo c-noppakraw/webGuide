@@ -1,7 +1,7 @@
 var express = require('express');
 var empty = require('is-empty');
 /* GET home page. */
-const getHomePage = (req, res) => {
+var getHomePage = (req, res) => {
     res.render('form_login');
 };
 
