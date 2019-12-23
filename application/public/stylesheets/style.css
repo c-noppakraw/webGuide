@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Kanit&display=swap');
+body {
+  padding: 50px;
+  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
+  /* font-family: 'Kanit', sans-serif; */
+}
+
+a {
+  color: #00B7FF;
+}
+
+.font {
+  font-family: 'Kanit', sans-serif;
+  color: #666;
+}

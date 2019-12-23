@@ -1,0 +1,250 @@
+<style>
+.blockconten {
+    border: 1px dashed #E9EDEF;
+}
+</style>
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <!-- BEGIN PAGE HEADER-->
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a class="font" href="/mainguide">หน้าหลัก</a> / บัตรประจำตัวไกด์
+                </li>
+            </ul>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h3 class="page-title font"> บัตรประจำตัวไกด์
+            <small>จัดการแก้ไขบัตรประจำตัวไกด์</small>
+        </h3>
+        <div class="container-fluid">
+            <div class="row font" style="border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                <div class="col-md-12 text-right" style="padding-right: 30px;">
+                    <button class="btn blue btn-sm" data-toggle="modal" href="#add"><i class="fa fa-plus-square"></i> เพิ่มบัตรประจำตัวไกด์</button>
+                </div>
+            </div>
+            <div class="row" style="padding: 25px;">
+                <div class="col-md-3" style="margin-top: 10px;">
+                    <div class="text-center blockconten">
+                        <img src="../picture/img_cardguide/id-card.png" alt="id-card.png" style="width:235px; margin: 10px; height: 215px;">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label text-right" style="padding: 0px;"><b class="">เลขที่</b> :</label>
+                                    <label class="col-md-8 control-label text-left" style="padding: 0px; padding-left: 15px;">1234-44541-2232</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-6 control-label text-right" style="padding: 0px;"><b class="">วันหมดอายุ</b> :</label>
+                                    <label class="col-md-6 control-label text-left" style="padding: 0px; padding-left: 10px;">31 ธ.ค. 2561</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin: 10px;">
+                            <span class="btn red-mint btn-outline sbold uppercase btn-block" disabled><i class="fa fa-close"></i> หมดอายุ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="margin-top: 10px;">
+                    <div class="text-center blockconten">
+                        <img src="../picture/img_cardguide/id-card.png" alt="id-card.png" style="width:235px; margin: 10px; height: 215px;">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label text-right" style="padding: 0px;"><b class="">เลขที่</b> :</label>
+                                    <label class="col-md-8 control-label text-left" style="padding: 0px; padding-left: 15px;">1234-44541-2232</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-6 control-label text-right" style="padding: 0px;"><b class="">วันหมดอายุ</b> :</label>
+                                    <label class="col-md-6 control-label text-left" style="padding: 0px; padding-left: 10px;">31 ธ.ค. 2562</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin: 10px;">
+                            <button class="btn yellow-crusta btn-block" data-toggle="modal" data-target="#edit"><i class="fa fa-pencil"></i> แก้ไข</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="margin-top: 10px;">
+                    <div class="text-center blockconten">
+                        <img src="../picture/img_cardguide/add_gallery.png" alt="add_gallery.png" style="width:235px; margin: 10px; height: 215px;">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label text-right" style="padding: 0px;"><b class="">เลขที่</b> :</label>
+                                    <label class="col-md-8 control-label text-left" style="padding: 0px; padding-left: 15px;">------</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-6 control-label text-right" style="padding: 0px;"><b class="">วันหมดอายุ</b> :</label>
+                                    <label class="col-md-6 control-label text-left" style="padding: 0px; padding-left: 10px;">-------</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin: 10px;">
+                            <button class="btn green-meadow btn-block" data-toggle="modal" data-target="#add"><i class="fa fa-plus-square"></i> เพิ่มบัตรประจำตัวไกด์</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->
+
+<!-- model add -->
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+                    
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title font">เพิ่มบัตรประจำตัวไกด์</h5>
+                <span class="close text-danger" data-dismiss="modal">&times;</span>
+            </div>
+                        
+                <!-- Modal body -->
+                <div class="modal-body" style="font-size: 14px;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-horizontal" action="" method="post" novalidate="novalidate">
+                                    <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">รูปบัตรประจำตัวไกด์ <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7 block_Gallery text-center">
+                                                <img src="../picture/img_cardguide/add_gallery.png" alt="add_gallery.png" style="width: 50%; margin: 10px;">
+                                                <input type="file" class="form-control-file" style="border: unset;" name="files-input-edit" id="files-input-edit" >
+                                                <span class="help-block"><b class="font-red">*</b> เป็นสกุลภาพ .jpg .png เท่านั้น</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">เลขที่ <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" placeholder="กรุณากรอกเลขที่">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">ประเภทบัตร <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7">
+                                                <input type="password" class="form-control" placeholder="กรุณาประเภทบัตร">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">วันหมดอายุ <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                    <input type="text" class="form-control">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row text-right" style="margin-top: 10px;">
+                                        <div class="form-actions right font">
+                                            <button type="submit" class="btn green">เพิ่มบัตรประจำตัวไกด์</button>
+                                            <button type="button" class="btn default" data-dismiss="modal">ยกเลิก</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-danger-outline btn-sm" data-dismiss="modal">ปิด</button>
+                </div> -->
+            </div>            
+        </div>
+    </div>
+</div>
+<!-- end model add -->
+
+<!-- model edit -->
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+                    
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title font">แก้ไขบัตรประจำตัวไกด์</h5>
+                <span class="close text-danger" data-dismiss="modal">&times;</span>
+            </div>
+                        
+                <!-- Modal body -->
+                <div class="modal-body" style="font-size: 14px;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-horizontal" action="" method="post" novalidate="novalidate">
+                                    <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">รูปบัตรประจำตัวไกด์ <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7 block_Gallery text-center">
+                                                <img src="../picture/img_cardguide/add_gallery.png" alt="add_gallery.png" style="width: 50%; margin: 10px;">
+                                                <input type="file" class="form-control-file" style="border: unset;" name="files-input-edit" id="files-input-edit" >
+                                                <span class="help-block"><b class="font-red">*</b> เป็นสกุลภาพ .jpg .png เท่านั้น</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">เลขที่ <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" placeholder="กรุณากรอกเลขที่">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">ประเภทบัตร <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7">
+                                                <input type="password" class="form-control" placeholder="กรุณาประเภทบัตร">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">วันหมดอายุ <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                    <input type="text" class="form-control">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row text-right" style="margin-top: 10px;">
+                                        <div class="form-actions right font">
+                                            <button type="submit" class="btn green">แก้ไขบัตรประจำตัวไกด์</button>
+                                            <button type="button" class="btn default" data-dismiss="modal">ยกเลิก</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-danger-outline btn-sm" data-dismiss="modal">ปิด</button>
+                </div> -->
+            </div>            
+        </div>
+    </div>
+</div>
+<!-- end model edit -->

@@ -1,0 +1,453 @@
+<style>
+.modal-footer {
+    text-align: right;
+    border-top: unset;
+}
+</style>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a class="font" href="/mainguide">หน้าหลัก</a> / จัดการผู้ดูแลระบบ
+                </li>
+            </ul>
+        </div>
+        <h3 class="page-title font"> จัดการผู้ดูแลระบบ
+            <small>เพิ่ม แก้ไข ผู้ดูแลระบบ</small>
+        </h3>
+        <% var idAdmin = session.id_admin; %>
+        <div class="container-fluid">
+            <div class="row font text-right" style="border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                <button class="btn btn-info" data-toggle="modal" data-target="#add"><i class="fa fa-plus-square"></i> เพิ่มผู้ดูแลระบบ</button>
+            </div>
+            <div class="row font" style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-top: 20px;">
+                <div class="col-md-12"> 
+                    <div class="portlet-body table-scrollable">
+                        <table class="font table table-striped table-bordered table-hover">
+                            <thead class="flip-content">
+                                <tr style="background-color: #fcfcfc;">
+                                    <th class="text-center" style="width:1% !important">สถานะ</th>
+                                    <th style="width:7% !important">Username</th>
+                                    <th style="width:15% !important">ชื่อจริง</th>
+                                    <th style="width:15% !important">นามสกุล</th>
+                                    <th style="width:15% !important">เบอร์โทร</th>
+                                    <th style="width:15% !important">E-mail</th>
+                                    <th style="width:6% !important" class="text-center">สิทธิ์</th>
+                                    <th style="width:1% !important" class="text-center">แก้ไข</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%                                   
+                                    data.forEach(function(dataList) {
+                                        var idAd = dataList.id_admin ;
+                                        var visible = dataList.visible ; 
+                                        var username = dataList.username ;
+                                        var fiestname = dataList.fiestname ;
+                                        var lastname = dataList.lastname ;
+                                        var phone = dataList.phone ;
+                                        var email = dataList.email ;
+                                        var level_admin = dataList.level_admin ;
+                                        var adminUpdate = dataList.adminUpdate ;
+                                        var dateUpdate = dataList.dateUpdate ;
+                                %>
+                                    <tr>
+                                        <% if(visible == 1) { %>
+                                            <td class="text-center" style="background-color: #76D7C4 ; color: #f9f9f9 ; ">เปิด</td>
+                                        <% } else { %>
+                                            <td class="text-center" style="background-color: #F1948A ;color: #f9f9f9 ; ">ปิด</td>
+                                        <% } %>
+                                        <td>
+                                            <%
+                                                if (level_admin == 1) {
+                                            %>
+                                                    <%= 'CEO-'+username; %>
+                                            <%
+                                                } else if (level_admin == 2) {
+                                            %>
+                                                    <%= 'IT-'+username; %>
+                                            <%
+                                                } else if (level_admin == 3) {
+                                            %>
+                                                    <%= 'AD-'+username; %>
+                                            <%
+                                                }
+                                            %>
+                                        </td>
+                                        <td><%= fiestname %></td>
+                                        <td><%= lastname %></td>
+                                        <td><%= phone %></td>
+                                        <td><%= email %></td>
+                                        <% if(level_admin == 1) { %>
+                                            <td class="text-center" style="background-color: #F1C40F; color: #f9f9f9 ; ">
+                                                CEO
+                                            </td>
+                                        <% } else if(level_admin == 2) { %>
+                                            <td class="text-center" style="background-color: #48C9B0; color: #f9f9f9 ; ">
+                                                Super Admin
+                                            </td>
+                                        <% } else if(level_admin == 3) { %>
+                                            <td class="text-center" style="background-color: #3498DB; color: #f9f9f9 ; ">
+                                                Admin
+                                            </td>
+                                        <% } %>
+                                        <td class="text-center">
+                                            <button class="btn btn-circle btn-xs default" id="idAdmin<%= idAd %>" name="idAdmin<%= idAd %>" data-IDadmin="<%= idAd %>" onclick="getID('<%= idAd %>')" >
+                                                <i class="glyphicon glyphicon-cog"> </i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- model add -->
+<div class="modal fade" id="add" name="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+                    
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title font">เพิ่มผู้ดูแลระบบ</h5>
+                <span class="close text-danger" data-dismiss="modal">&times;</span>
+            </div>
+                        
+                <!-- Modal body -->
+                <div class="modal-body" style="font-size: 14px;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-horizontal" action="" method="post" id="frm_Adddata" name="frm_Adddata">
+                                    <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">Username <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" id="Newuser" name="Newuser" placeholder="กรุณากรอก Username">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">Password <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7">
+                                                <input type="password" id="Newpass" name="Newpass" class="form-control" placeholder="กรุณากรอก Password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">สิทธิ์ <b class="font-red">*</b> :</label>
+                                            <div class="col-md-7">
+                                                <select class="form-control" name="Newlevel" id="Newlevel">
+                                                    <option value="">--- [กรุณาเลือกสิทธิ์การใช้งาน] ---</option>
+                                                    <option value="1">CEO</option>
+                                                    <option value="2">Super Admin</option>
+                                                    <option value="3">Admin</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body" name="msgErrorNewdata" id="msgErrorNewdata">
+                                        </div>
+                                    </div>
+                                    <div class="row text-right" style="margin-top: 10px;">
+                                        <div class="form-actions right font">
+                                            <input type="hidden" name="idAdminCeate" id="idAdminCeate" value="<%= idAdmin %>">
+                                            <button type="button" class="btn green" onclick="chkNewdata()">เพิ่มผู้ดูแลระบบ</button>
+                                            <button type="button" class="btn default" data-dismiss="modal">ยกเลิก</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-danger-outline btn-sm" data-dismiss="modal">ปิด</button>
+                </div> -->
+            </div>            
+        </div>
+    </div>
+</div>
+<!-- end model add -->
+
+<!-- model edit -->
+<div class="modal fade" id="edit" name="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+                    
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title font">แก้ไขข้อมูลผู้ดูแลระบบ</h5>
+                <span class="close text-danger" data-dismiss="modal">&times;</span>
+            </div>
+                        
+                <!-- Modal body -->
+                <div class="modal-body" style="font-size: 14px;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-horizontal" action="" method="post" novalidate="novalidate">
+                                    <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">รูปบัตรประจำตัว :</label>
+                                            <div class="col-md-7 block_Gallery text-center">
+                                                <img src="../picture/img_cardguide/user.png" alt="user.png" style="width: 25%; margin: 10px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">ชื่อจริง - นามสกุล :</label>
+                                            <div class="col-md-7">
+                                                <h5 class="font" name="fiestnameOrd" id="fiestnameOrd"></h5>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">เบอร์ :</label>
+                                            <div class="col-md-7">
+                                                <h5 class="font" name="phoneOrd" id="phoneOrd"></h5>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">E-mail :</label>
+                                            <div class="col-md-7">
+                                                <h5 class="font" name="emailOrd" id="emailOrd"></h5>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" style="color: #2C3E50;">สถานะ :</label>
+                                            <div class="col-md-7">
+                                                <select class="form-control" name="statusAdminOrd" id="statusAdminOrd">
+                                                    <option value="">--- [เลือกสถานะ] ---</option>
+                                                    <option value="1">เปิด</option>
+                                                    <option value="2">ปิด</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row text-right" style="margin-top: 10px;">
+                                        <div class="form-actions right font">
+                                            <input type="hidden" name="idadminOrd" id="idadminOrd">
+                                            <input type="hidden" name="idAdminEdit" id="idAdminEdit" value="<%= idAdmin %>">
+                                            <button type="button" class="btn btn-warning" onclick="chkUpdatedata()">แก้ไขข้อมูล</button>
+                                            <button type="button" class="btn default" data-dismiss="modal">ยกเลิก</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-danger-outline btn-sm" data-dismiss="modal">ปิด</button>
+                </div> -->
+            </div>            
+        </div>
+    </div>
+</div>
+<!-- end model edit -->
+<!-- Modal AddComplete -->
+<div class="modal fade text-center" id="AddComplete" name="AddComplete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content font">
+                    
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-bottom: unset; padding-bottom: 0px;">
+                <p class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </p>
+            </div>
+                        
+                <!-- Modal body -->
+                <div class="modal-body" style="padding-bottom: 0px;padding-top: 0px;">
+                    <img src="../picture/img_cardguide/userComplete.png" alt="userComplete" width="50%;" />
+                    <div name="textAlert" id="textAlert"></div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                   <a href="/mainadmin/listadmin" class="btn default">ปิด</a>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+<!-- End Modal AddComplete -->
+<!-- Modal AddError -->
+<div class="modal fade text-center" id="AddError" name="AddError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content font">
+                    
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-bottom: unset; padding-bottom: 0px;">
+                <p class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </p>
+            </div>
+                        
+                <!-- Modal body -->
+                <div class="modal-body" style="padding-bottom: 0px;padding-top: 0px;">
+                    <img src="../picture/img_cardguide/userError.png" alt="userError" width="50%;" />
+                    <h4 class="font-blue-chambray font"><ins class="font-red">พบปัญหา!</ins> ไม่สามารถเพิ่มได้</h4>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger-outline btn-sm" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+<!-- End Modal AddError -->
+
+<script>
+function chkNewdata() {
+    var html = "" ;
+        if (document.frm_Adddata.Newuser.value == "" && document.frm_Adddata.Newpass.value == "" && document.frm_Adddata.Newlevel.value == "") { 
+            html += '<div class="note note-danger">';
+                html += '<h5 class="block font"><b class="font-red">*</b> กรุณากรอก Username Password และ สิทธิ์การใช้งาน</h5>';
+            html += '</div>';
+            $('#msgErrorNewdata').fadeOut('fast', function() {
+                $(this).html(html).fadeIn('slow');
+            });
+        } else if (document.frm_Adddata.Newuser.value == "") {
+            html += '<div class="note note-danger">';
+                html += '<h5 class="block font"><b class="font-red">*</b> กรุณากรอก Username</h5>';
+            html += '</div>';
+            $('#msgErrorNewdata').fadeOut('fast', function() {
+                $(this).html(html).fadeIn('slow');
+            });
+        } else if (document.frm_Adddata.Newpass.value == "") {
+            html += '<div class="note note-danger">';
+                html += '<h5 class="block font"><b class="font-red">*</b> กรุณากรอก Password</h5>';
+            html += '</div>';
+            $('#msgErrorNewdata').fadeOut('fast', function() {
+                $(this).html(html).fadeIn('slow');
+            });
+        } else if (document.frm_Adddata.Newlevel.value == "") {
+            html += '<div class="note note-danger">';
+                html += '<h5 class="block font"><b class="font-red">*</b> กรุณากรอก สิทธิ์การใช้งาน</h5>';
+            html += '</div>';
+            $('#msgErrorNewdata').fadeOut('fast', function() {
+                $(this).html(html).fadeIn('slow');
+            });
+        } else {
+            var Newuser = $('#Newuser').val();
+            var Newpass = $('#Newpass').val();
+            var Newlevel = $('#Newlevel').val();
+            var idAdminCeate = $('#idAdminCeate').val();
+            var url = '/mainadmin/addAdmin';
+            postData = {
+                'idAdminCeate' : idAdminCeate,
+                'Newuser' : Newuser,
+                'Newpass' : Newpass,
+                'Newlevel' : Newlevel
+            };
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    cache: false,
+                    url: url,
+                    data: postData,
+                    success: function(json) {
+                        statusAddData = json;
+                        if (statusAddData == 0) {
+                            $('#AddError').modal('show');
+                            $('#add').modal('hide');
+                        } else {
+                            $('#AddComplete').modal('show');
+                            $('#textAlert').html('<h4 class="font-blue-chambray font">เพิ่มผู้ดูแลระบบ <ins class="font-green-meadow">เรียบร้อย!</ins></h4>');
+                            $('#add').modal('hide');
+                        }
+                    },
+                    error: function() {
+                        console.log('package load failed...');
+                    }
+                });
+        }
+}
+function getID(key) {
+    var dataOrd = '';
+    var idAd = document.getElementById('idAdmin'+key) ;
+    var id_Ad = idAd.getAttribute("data-IDadmin") ;
+    var url = '/mainadmin/getIDadmin';    
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            url: url,
+            data: { id_Ad : id_Ad },
+            success: function(json) {
+                var dataOrd = json;
+                var maxLoop = dataOrd.length;
+                    for (var i=0 ; i < maxLoop; i++) {
+                        var idadminOrd = dataOrd[i]['id_admin'];
+                        var fiestnameOrd = dataOrd[i]['fiestname'];
+                        var lastnameOrd = dataOrd[i]['lastname'];
+                        var emailOrd = dataOrd[i]['email'];
+                        var phoneOrd = dataOrd[i]['phone'];
+                        var statusAdminOrd = dataOrd[i]['status'];
+                    }
+                $('#edit').modal('show');
+                $('#idadminOrd').val(idadminOrd);
+                    if (fiestnameOrd && lastnameOrd) {
+                        $('#fiestnameOrd').html('<b>'+fiestnameOrd+'</b>'+ ' ' +lastnameOrd);
+                    } else {
+                        $('#fiestnameOrd').html('<h5 class="font-red font">ไม่พบข้อมูลในระบบ</h5>');
+                    }
+                    if (emailOrd) {
+                        $('#emailOrd').html(emailOrd);
+                    } else {
+                        $('#emailOrd').html('<h5 class="font-red font">ไม่พบข้อมูลในระบบ</h5>');
+                    }
+                    if (phoneOrd) {
+                        $('#phoneOrd').html(phoneOrd);
+                    } else {
+                        $('#phoneOrd').html('<h5 class="font-red font">ไม่พบข้อมูลในระบบ</h5>');
+                    }
+                $('#statusAdminOrd').val(statusAdminOrd);
+            },
+            error: function() {
+                console.log('package load failed...');
+            }
+        });
+    
+}    
+function chkUpdatedata() {
+    var UpdidAdminOrd = $('#idadminOrd').val();
+    var UpdstatusAdminOrd = $('#statusAdminOrd').val();
+    var idAdminEdit = $('#idAdminEdit').val();
+    var url = '/mainadmin/editAdmin';
+    var postData = {
+            'idAdminEdit' : idAdminEdit,
+            'UpdidAdminOrd' : UpdidAdminOrd,
+            'UpdstatusAdminOrd' : UpdstatusAdminOrd
+        };
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            url: url,
+            data: postData,
+            success: function(json) {
+                statusAddData = json;
+                if (statusAddData == 0) {
+                    $('#AddComplete').modal('show');
+                    $('#textAlert').html('<h4 class="font-blue-chambray font">แก้ไขเพิ่มผู้ดูแลระบบ <ins class="font-green-meadow">เรียบร้อย!</ins></h4>');
+                    $('#edit').modal('hide');
+                } else {
+                    $('#AddError').modal('show');
+                    $('#edit').modal('hide');
+                }
+            },
+            error: function() {
+                console.log('package load failed...');
+            }
+        });
+}
+</script>

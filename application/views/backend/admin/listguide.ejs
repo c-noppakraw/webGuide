@@ -1,0 +1,629 @@
+<style>
+    .modal-footer {
+        text-align: right;
+        border-top: unset;
+    }
+    </style>
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <a class="font" href="/mainguide">หน้าหลัก</a> / จัดการไกด์
+                    </li>
+                </ul>
+            </div>
+            <h3 class="page-title font"> จัดการไกด์
+                <small>เพิ่ม แก้ไข ไกด์</small>
+            </h3>
+            <% var idAdmin = session.id_admin; %>
+            <div class="container-fluid">
+                <div class="row font text-right" style="border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#add"><i class="fa fa-plus-square"></i> เพิ่มไกด์</button>
+                </div>
+                <div class="row font" style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-top: 20px;">
+                    <div class="col-md-12"> 
+                        <div class="portlet-body table-scrollable">
+                            <table class="font table table-striped table-bordered table-hover">
+                                <thead class="flip-content">
+                                    <tr style="background-color: #fcfcfc;">
+                                        <th class="text-center" style="width:1% !important">สถานะ</th>
+                                        <th style="width:1% !important">Username</th>
+                                        <th style="width:7% !important">ชื่อจริง</th>
+                                        <th style="width:7% !important">นามสกุล</th>
+                                        <th style="width:5% !important">เบอร์โทร</th>
+                                        <th style="width:5% !important">E-mail</th>
+                                        <th style="width:10% !important">ที่อยู่</th>
+                                        <th style="width:10% !important">บัตรประจำตัวไกด์</th>
+                                        <th style="width:1% !important" class="text-center">ตารางงาน</th>
+                                        <th style="width:1% !important" class="text-center">แก้ไข</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%                                   
+                                        data.forEach(function(dataList) {
+                                            var idGu = dataList.id_guide ;
+                                            var status = dataList.visible ; 
+                                            var username = dataList.username ;
+                                            var fiestname = dataList.fiestname ;
+                                            var lastname = dataList.lastname ;
+                                            var phone = dataList.phone ;
+                                            var email = dataList.email ;
+                                            var address = dataList.address;
+                                            var district = dataList.district;
+                                            var amphoe = dataList.amphoe;
+                                            var province = dataList.province;
+                                            var zipcode = dataList.zipcode;
+                                            var cardVisible = dataList.cardVisible;
+                                            var detailCard = dataList.detailCard;
+                                            var detailType = dataList.detailType;
+                                            var noGuide = dataList.noGuide;
+                                            var adminUpdate = dataList.adminUpdate ;
+                                            var dateUpdate = dataList.dateUpdate ;
+                                    %>
+                                        <tr>
+                                            <% if(status == 1) { %>
+                                                <td class="text-center" style="background-color: #76D7C4 ; color: #f9f9f9 ; "><p style="margin-top: 10px; margin-bottom: 0px;">เปิด</p></td>
+                                            <% } else { %>
+                                                <td class="text-center" style="background-color: #F1948A ;color: #f9f9f9 ; "><p style="margin-top: 10px; margin-bottom: 0px;">ปิด</p></td>
+                                            <% } %>
+                                            <td><%= username %></td>
+                                            <td><%= fiestname %></td>
+                                            <td><%= lastname %></td>
+                                            <td><%= phone %></td>
+                                            <td><%= email %></td>
+                                            <td><%= address+' '+district+' '+amphoe+' '+province+' '+zipcode %></td>
+                                            <td>
+                                                <%
+                                                    if (cardVisible == 1) {
+                                                %>
+                                                        <%= detailType %><hr style="margin: 0px;"><%= 'เลขที่ : '+noGuide %>
+                                                <%
+                                                    } else {
+                                                %>
+                                                        <p class="text-danger" style="margin-top: 0px;">บัตรประจำตัวไกด์หมดอายุ</p>
+                                                <%
+                                                    }
+                                                %>
+                                            </td>
+                                            <td style="background-color: #67809F;">
+                                                <p style="margin-top: 10px; margin-bottom: 0px;">
+                                                    <button type="button" class="btn blue-hoki btn-block btn-sm" style="padding: 0px;"><i class="icon-calendar"></i></button>
+                                                </p>
+                                            </td>
+                                            <td class="text-center">
+                                                <p style="margin-top: 10px; margin-bottom: 0px;">
+                                                    <button class="btn btn-circle btn-xs default" id="idGuide<%= idGu %>" name="idGuide<%= idGu %>" data-IDGuide="<%= idGu %>" onclick="getID('<%= idGu %>')" >
+                                                        <i class="glyphicon glyphicon-cog"> </i>
+                                                    </button>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- model add -->
+    <div class="modal fade" id="add" name="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                        
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title font">เพิ่มไกด์</h5>
+                    <span class="close text-danger" data-dismiss="modal">&times;</span>
+                </div>
+                            
+                    <!-- Modal body -->
+                    <div class="modal-body" style="font-size: 14px;">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form-horizontal" action="/mainadmin/addCardGuide" method="post" id="frm_Adddata" name="frm_Adddata" method="post" enctype="multipart/form-data" novalidate="novalidate">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                                    <h5 class="font">ข้อมูลระบบ :</h5>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">Username <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="text" class="form-control" id="Newuser" name="Newuser" placeholder="กรุณากรอก Username">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">Password <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="password" id="Newpass" name="Newpass" class="form-control" placeholder="กรุณากรอก Password">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                                    <h5 class="font">ข้อมูลส่วนตัว :</h5>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">ชื่อ <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="text" class="form-control" id="NewFname" name="NewFname" placeholder="กรุณากรอก ชื่อจริง">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">สกุล <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="text" id="NewLname" name="NewLname" class="form-control" placeholder="กรุณากรอก นามสกุล">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">Firstname <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="text" class="form-control" id="NewFnameEN" name="NewFnameEN" placeholder="กรุณากรอก Firstname">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">Lastname <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="text" id="NewLnameEN" name="NewLnameEN" class="form-control" placeholder="กรุณากรอก Lastname">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">บัตรประชาชน <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="email" id="NewIDCard" name="NewIDCard" class="form-control" placeholder="กรุณากรอก รหัสบัตรประชาชน">
+                                                            <span class="help-block" style="margin-bottom: 0px;"><b class="font-red">*</b> กรณีเป็นคนไทย</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">Passport <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="email" id="NewPassport" name="NewPassport" class="form-control" placeholder="กรุณากรอก Passport">
+                                                            <span class="help-block" style="margin-bottom: 0px;"><b class="font-red">*</b> กรณีเป็นคนต่างชาติ</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                                    <h5 class="font">ข้อมูลติดต่อ :</h5>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">เบอร์ติดต่อ <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="text" class="form-control" id="NewTel" name="NewTel" placeholder="กรุณากรอก เบอร์ติดต่อ">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">E-mail <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="email" id="NewEmail" name="NewEmail" class="form-control" placeholder="กรุณากรอก E-mail">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                                    <h5 class="font">บัตรประจำตัวไกด์ :</h5>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">ประเภทบัตร <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <select class="form-control" name="NewType" id="NewType" onchange="shoDetailTypeCard()">
+                                                                <option value="">-- เลือกประเภทบัตร --</option>
+                                                                <%
+                                                                    typeCard.forEach(function(dataListTypeCard) {
+                                                                        var nameType = dataListTypeCard.nameType;
+                                                                        var codeType = dataListTypeCard.codeType;
+                                                                        var selectProvince = '';
+                                                                %>
+                                                                    <option value="<%= codeType %>"><%= nameType %></option>
+                                                                <%
+                                                                    });
+                                                                %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">ชนิดบัตร <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <select class="form-control" name="NewDetailType" id="NewDetailType">
+                                                                <option value="">-- เลือกชนิดบัตร --</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">อัพรูปบัตร <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="file" name="NewImgCard" id="NewImgCard" multiple>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">วันหมดอายุ <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
+                                                                <input type="text" class="form-control" name="endGuide" id="endGuide" placeholder="กรุณากรอกวันหมดอายุบัตร">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn default" type="button">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label" style="color: #2C3E50;">เลขที่ <b class="font-red">*</b> :</label>
+                                                        <div class="col-md-7">
+                                                            <input type="email" id="NewNoCard" name="NewNoCard" class="form-control" placeholder="กรุณากรอก เลขที่">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="portlet-body" name="msgErrorNewdata" id="msgErrorNewdata" style="display: block;margin-top: 10px;">
+                                        </div>
+                                        <div class="row text-right" style="margin-top: 10px;">
+                                            <div class="form-actions right font">
+                                                <input type="hidden" name="idAdminCeate" id="idAdminCeate" value="<%= idAdmin %>">
+                                                <button type="submit" id="addNewData" name="addNewData" class="btn green" onclick="chkNewdata()">เพิ่มไกด์</button>
+                                                <button type="button" class="btn default" data-dismiss="modal">ยกเลิก</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-danger-outline btn-sm" data-dismiss="modal">ปิด</button>
+                    </div> -->
+                </div>            
+            </div>
+        </div>
+    </div>
+    <!-- end model add -->
+    
+    <!-- model edit -->
+    <div class="modal fade" id="edit" name="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                        
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title font">แก้ไขข้อมูลผู้ดูแลระบบ</h5>
+                    <span class="close text-danger" data-dismiss="modal">&times;</span>
+                </div>
+                            
+                    <!-- Modal body -->
+                    <div class="modal-body" style="font-size: 14px;">
+                        <div class="container-fluid">
+                            <form class="form-horizontal" action="" method="post" novalidate="novalidate"></form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" style="color: #2C3E50;">รูปบัตรประจำตัว :</label>
+                                                <div class="col-md-7 block_Gallery text-center">
+                                                    <img src="../picture/img_cardguide/user.png" alt="user.png" style="width: 25%; margin: 10px;">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" style="color: #2C3E50;">ชื่อจริง - นามสกุล :</label>
+                                                <div class="col-md-7">
+                                                    <h5 class="font" name="fiestnameOrd" id="fiestnameOrd"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" style="color: #2C3E50;">เบอร์ :</label>
+                                                <div class="col-md-7">
+                                                    <h5 class="font" name="phoneOrd" id="phoneOrd"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" style="color: #2C3E50;">E-mail :</label>
+                                                <div class="col-md-7">
+                                                    <h5 class="font" name="emailOrd" id="emailOrd"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" style="color: #2C3E50;">สถานะ :</label>
+                                                <div class="col-md-7">
+                                                    <select class="form-control" name="statusGuideOrd" id="statusGuideOrd">
+                                                        <option value="">--- [เลือกสถานะ] ---</option>
+                                                        <option value="1">เปิด</option>
+                                                        <option value="2">ปิด</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" style="color: #2C3E50;">ประเทศมัคคุเทศก์ :</label>
+                                                <div class="col-md-7">
+                                                    <select class="form-control" name="typeGuideOrd" id="typeGuideOrd">
+                                                        <option value="">--- [เลือกประเทศ] ---</option>
+                                                        <option value="1">มัคคุเทศก์ทั่วไป</option>
+                                                        <option value="2">มัคคุเทศก์เฉพาะ</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>
+                                <div class="row text-right" style="margin-top: 10px;">
+                                    <div class="form-actions right font">
+                                        <input type="hidden" name="idGuideOrd" id="idGuideOrd">
+                                        <input type="hidden" name="idAdminEdit" id="idAdminEdit" value="<%= idAdmin %>">
+                                        <button type="submit" class="btn btn-warning" onclick="chkUpdatedata()">แก้ไขข้อมูล</button>
+                                        <button type="button" class="btn default" data-dismiss="modal">ยกเลิก</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-danger-outline btn-sm" data-dismiss="modal">ปิด</button>
+                    </div> -->
+                </div>            
+            </div>
+        </div>
+    </div>
+    <!-- end model edit -->
+    <!-- Modal AddComplete -->
+    <div class="modal fade text-center" id="AddComplete" name="AddComplete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content font">
+                        
+                <!-- Modal Header -->
+                <div class="modal-header" style="border-bottom: unset; padding-bottom: 0px;">
+                    <p class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </p>
+                </div>
+                            
+                    <!-- Modal body -->
+                    <div class="modal-body" style="padding-bottom: 0px;padding-top: 0px;">
+                        <img src="../picture/img_cardguide/userComplete.png" alt="userComplete" width="50%;" />
+                        <div name="textAlert" id="textAlert"></div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                       <a href="/mainadmin/listguide" class="btn default">ปิด</a>
+                    </div>
+                </div>            
+            </div>
+        </div>
+    </div>
+    <!-- End Modal AddComplete -->
+    <!-- Modal AddError -->
+    <div class="modal fade text-center" id="AddError" name="AddError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content font">
+                        
+                <!-- Modal Header -->
+                <div class="modal-header" style="border-bottom: unset; padding-bottom: 0px;">
+                    <p class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </p>
+                </div>
+                            
+                    <!-- Modal body -->
+                    <div class="modal-body" style="padding-bottom: 0px;padding-top: 0px;">
+                        <img src="../picture/img_cardguide/userError.png" alt="userError" width="50%;" />
+                        <h4 class="font-blue-chambray font"><ins class="font-red">พบปัญหา!</ins> ไม่สามารถเพิ่มได้</h4>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger-outline btn-sm" data-dismiss="modal">ปิด</button>
+                    </div>
+                </div>            
+            </div>
+        </div>
+    </div>
+    <!-- End Modal AddError -->
+    
+    <script>
+    function shoDetailTypeCard() {
+        var NewType = $('#NewType').val();
+        var url = "/mainadmin/getDeailTypeCard";
+        postData = {
+            'NewType' : NewType
+        };
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            url: url,
+            data: postData,
+            success: function(json) {
+                var listDetailTypeCard = json;
+                var maxLoop = listDetailTypeCard.length;
+                $('#NewDetailType').empty();
+                if ( !$('#NewDetailType').val() ) {
+                    $('#NewDetailType').append('<option value="">-- เลือกชนิดบัตร --</option>');
+                }
+                for (var i=0 ; i < maxLoop; i++) {
+                    var detailType = listDetailTypeCard[i]['detailType'];
+                    var codeTypeDetail = listDetailTypeCard[i]['codeTypeDetail'];
+                        $('#NewDetailType').append('<option value="'+codeTypeDetail+'">'+detailType+'</option>');
+                }
+            },
+            error: function() {
+                console.log('package load failed...');
+            }
+        });
+    }
+    function chkNewdata() {
+        var Newuser = $("#Newuser").val();
+        var Newpass = $("#Newpass").val();
+        var NewFname = $("#NewFname").val();
+        var NewLname = $("#NewLname").val();
+        var NewFnameEN = $("#NewFnameEN").val();
+        var NewLnameEN = $("#NewLnameEN").val();
+        var NewIDCard = $("#NewIDCard").val();
+        var NewPassport = $("#NewPassport").val();
+        var NewTel = $("#NewTel").val();
+        var NewEmail = $("#NewEmail").val();
+        var NewType = $("#NewType").val();
+        var NewDetailType = $("#NewDetailType").val();
+        var NewImgCard = $("#NewImgCard").val();
+        var NewNoCard = $("#NewNoCard").val();
+        var endGuide = $("#endGuide").val();
+        var html = "" ;
+        var chkInput = 1;
+        var textShow = "";
+        
+            if ( Newuser == "" && Newpass == "" ) { chkInput = 0; var textShow = 'กรุณากรอก ข้อมูลให้ครบถ้วน'; }
+            else if ( Newuser == "" ) { chkInput = 0; var textShow = 'กรุณากรอก Username'; }
+            else if ( Newpass == "" ) { chkInput = 0; var textShow = 'กรุณากรอก Password'; }
+            else if ( NewFname == "" && NewFnameEN == "") { chkInput = 0; var textShow = 'กรุณากรอก ชื่อจริง หรือ Firstname'; }
+            else if ( NewLname == "" && NewLnameEN == "") { chkInput = 0; var textShow = 'กรุณากรอก นามสกุล หรือ Lastname'; }
+            else if ( NewIDCard == "" && NewPassport == "") { chkInput = 0; var textShow = 'กรุณากรอก รหัสบัตรประชาชน หรือ Passport'; }
+            else if ( NewTel == "" ) { chkInput = 0; var textShow = 'กรุณากรอก เบอร์ติดต่อ'; }
+            else if ( NewEmail == "" ) { chkInput = 0; var textShow = 'กรุณากรอก E-mail'; }
+            else if ( NewType == "" ) { chkInput = 0; var textShow = 'กรุณากรอก ประเภทบัตร'; }
+            else if ( NewDetailType == "" ) { chkInput = 0; var textShow = 'กรุณากรอก ชนิดบัตร'; }
+            else if ( NewImgCard == "" ) { chkInput = 0; var textShow = 'กรุณาอัพรูป บัตรประจำตัวไกด์'; }
+            else if ( NewNoCard == "" ) { chkInput = 0; var textShow = 'กรุณาอัพรูป เลขที่'; }
+            else if ( endGuide == "" ) { chkInput = 0; var textShow = 'กรุณาระบุ วันหมดอายุบัตร'; }
+
+            if (chkInput == 0) {
+                html += '<div class="note note-danger">';
+                    html += '<h5 class="block font"><b class="font-red">*</b> '+textShow+'</h5>';
+                html += '</div>';
+                $('#msgErrorNewdata').fadeOut('fast', function() {
+                    $(this).html(html).fadeIn('slow');
+                });
+            } else {
+                        $('#msgErrorNewdata').empty();
+                var idAdminCeate = $('#idAdminCeate').val();
+                var url = '/mainadmin/addGuide';
+                postData = {
+                    'idAdminCeate' : idAdminCeate,
+                    'Newuser' : Newuser,
+                    'Newpass' : Newpass,
+                    'NewFname' : NewFname,
+                    'NewLname' : NewLname,
+                    'NewFnameEN' : NewFnameEN,
+                    'NewLnameEN' : NewLnameEN,
+                    'NewPassport' : NewPassport,
+                    'NewIDCard' : NewIDCard,
+                    'NewTel' : NewTel,
+                    'NewEmail' : NewEmail,
+                    'NewType' : NewType,
+                    'NewDetailType' : NewDetailType,
+                    'endGuide' : endGuide,
+                    'NewNoCard' : NewNoCard
+                }; 
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    cache: false,
+                    url: url,
+                    data: postData,
+                    success: function(json) {
+                        statusAddData = json;
+                        console.log(statusAddData);
+                            if (statusAddData == 0) {
+                                $('#AddError').modal('show');
+                                $('#add').modal('hide');
+                            } else {
+                                $('#AddComplete').modal('show');
+                                $('#textAlert').html('<h4 class="font-blue-chambray font">เพิ่มไกด์ <ins class="font-green-meadow">เรียบร้อย!</ins></h4>');
+                                $('#add').modal('hide');
+                            }
+                        },
+                        error: function() {
+                            console.log('addGuide failed...');
+                        }
+                    });
+            }
+    }
+    function getID(key) {
+        var dataOrd = '';
+        var idGu = document.getElementById('idGuide'+key) ;
+        var id_Gu = idGu.getAttribute("data-IDGuide") ;
+        var url = '/mainadmin/getIDGuide';    
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                cache: false,
+                url: url,
+                data: { id_Gu : id_Gu },
+                success: function(json) {
+                    var dataOrd = json;
+                    var maxLoop = dataOrd.length;
+                        for (var i=0 ; i < maxLoop; i++) {
+                            var idGuideOrd = dataOrd[i]['id_guide'];
+                            var imgGuide = dataOrd[i]['imgGuide'];
+                            var fiestnameOrd = dataOrd[i]['fiestname'];
+                            var lastnameOrd = dataOrd[i]['lastname'];
+                            var emailOrd = dataOrd[i]['email'];
+                            var phoneOrd = dataOrd[i]['phone'];
+                            var visibleGuideOrd = dataOrd[i]['visible'];
+                        }
+                    $('#edit').modal('show');
+                    $('#idGuideOrd').val(idGuideOrd);
+                        if (fiestnameOrd && lastnameOrd) {
+                            $('#fiestnameOrd').html('<b>'+fiestnameOrd+'</b>'+ ' ' +lastnameOrd);
+                        } else {
+                            $('#fiestnameOrd').html('<h5 class="font-red font">ไม่พบข้อมูลในระบบ</h5>');
+                        }
+                        if (emailOrd) {
+                            $('#emailOrd').html(emailOrd);
+                        } else {
+                            $('#emailOrd').html('<h5 class="font-red font">ไม่พบข้อมูลในระบบ</h5>');
+                        }
+                        if (phoneOrd) {
+                            $('#phoneOrd').html(phoneOrd);
+                        } else {
+                            $('#phoneOrd').html('<h5 class="font-red font">ไม่พบข้อมูลในระบบ</h5>');
+                        }
+                    $('#statusGuideOrd').val(visibleGuideOrd);
+                    $('#typeGuideOrd').val();
+                },
+                error: function() {
+                    console.log('package load failed...');
+                }
+            });
+    }    
+    function chkUpdatedata() {
+        // var UpdidAdminOrd = $('#idadminOrd').val();
+        // var UpdstatusAdminOrd = $('#statusAdminOrd').val();
+        // var idAdminEdit = $('#idAdminEdit').val();
+        // var url = '/mainadmin/editAdmin';
+        // var postData = {
+        //         'idAdminEdit' : idAdminEdit,
+        //         'UpdidAdminOrd' : UpdidAdminOrd,
+        //         'UpdstatusAdminOrd' : UpdstatusAdminOrd
+        //     };
+        //     $.ajax({
+        //         type: "POST",
+        //         dataType: "json",
+        //         cache: false,
+        //         url: url,
+        //         data: postData,
+        //         success: function(json) {
+        //             statusAddData = json;
+        //             if (statusAddData == 0) {
+        //                 $('#AddComplete').modal('show');
+        //                 $('#textAlert').html('<h4 class="font-blue-chambray font">แก้ไขเพิ่มผู้ดูแลระบบ <ins class="font-green-meadow">เรียบร้อย!</ins></h4>');
+        //                 $('#edit').modal('hide');
+        //             } else {
+        //                 $('#AddError').modal('show');
+        //                 $('#edit').modal('hide');
+        //             }
+        //         },
+        //         error: function() {
+        //             console.log('package load failed...');
+        //         }
+        //     });
+    }
+    </script>

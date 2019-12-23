@@ -1,0 +1,466 @@
+<%- include head %>
+<style>
+.block_Gallery {
+	border: 2px dotted #D5D8DC;
+    padding: 10px;
+    border-radius: 5px;
+	/* width: 65%; */
+}
+</style>
+<body class="page-sidebar-closed-hide-logo page-content-white">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div style="margin: 5%;">
+                    <div class="portlet light tasks-widget bordered">
+                        <p class="text-right font"><a href="/login">หน้าแรก</a> / <a href="/register/condition">เงื่อนไขการสมัครสมาชิก</a> / สมัครสมาชิก</p>
+                        <div class="portlet-title">
+                            <div class="font-blue">
+                                <h3 class="caption-subject uppercase font" style="margin-top: 0px;">สมัครสมาชิก <b style="color: #364150;">GG</b><b class="font-red">QE</b></h3>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form class="form-horizontal" action="/register/addPic" method="post" enctype="multipart/form-data" novalidate="novalidate">
+                                <div class="row">
+
+                                    <div class="col-md-12" style="border-right: 2px dotted #eef1f5;">
+
+                                        <div class="row" style="margin-top: 15px;">
+                                            <div class="col-sm-3 text-right">
+                                                <span class="btn btn-circle default">1</span>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <h4 class="font" style="color: #2C3E50;">ข้อมูลการเข้าสู่ระบบ</h4>
+                                            </div>
+                                        </div>
+                                        <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">Username <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="username" id="username" placeholder="Enter Username">
+                                                    <!-- <span class="help-block"> A block of help text. </span> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">Password <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password">
+                                                    <span class="help-block"><b class="font-red">*</b> กรุณาตั้งรหัสผ่านขั้นต่ำ 6 ตัวขึ้นไป</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">Confirm Password <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="password" name="CFpassword" id="CFpassword" class="form-control" placeholder="Enter Password Again">
+                                                    <!-- <span class="help-block"><b class="font-red">*</b> กรุณาตั้งรหัสผ่านขั้นต่ำ 6 ตัวขึ้นไป</span> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">E-mail <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter E-mail">
+                                                    <!-- <span class="help-block"><b class="font-red">*</b> กรุณาตั้งรหัสผ่านขั้นต่ำ 6 ตัวขึ้นไป</span> -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="margin-top: 15px;">
+                                            <div class="col-sm-3 text-right">
+                                                <span class="btn btn-circle default">2</span>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <h4 class="font" style="color: #2C3E50;">ข้อมูลส่วนตัว</h4>
+                                            </div>
+                                        </div>
+                                        <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label">คำนำหน้านาม <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <select class="form-control" name="Th_Prefix" id="Th_Prefix">
+                                                        <option value="">-- กรุณาเลือกคำนำหน้า --</option>
+                                                        <option value="นาย">นาย</option>
+                                                        <option value="นาง">นาง</option>
+                                                        <option value="นางสาว">นางสาว</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">ชื่อ <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="fnameTh" id="fnameTh" placeholder="กรุณากรอกชื่อ">
+                                                    <!-- <span class="help-block"> A block of help text. </span> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">นามสกุล <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="lnameTh" id="lnameTh" placeholder="กรุณากรอกนามสกุล">
+                                                    <!-- <span class="help-block"><b class="font-red">*</b> กรุณาตั้งรหัสผ่านขั้นต่ำ 6 ตัวขึ้นไป</span> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label">Name Title <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <select class="form-control" name="En_Prefix" id="En_Prefix">
+                                                        <option value="">-- Select Name Title --</option>
+                                                        <option value="Mr.">Mr.</option>
+                                                        <option value="Mrs.">Mrs.</option>
+                                                        <option value="Miss">Miss</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">First name <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="fnameEn" id="fnameEn" placeholder="Enter First name">
+                                                    <!-- <span class="help-block"><b class="font-red">*</b> กรุณาตั้งรหัสผ่านขั้นต่ำ 6 ตัวขึ้นไป</span> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">Last name <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" id="lnameEn" name="lnameEn" placeholder="Enter Last name">
+                                                    <!-- <span class="help-block"><b class="font-red">*</b> กรุณาตั้งรหัสผ่านขั้นต่ำ 6 ตัวขึ้นไป</span> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">รหัสบัตรประชาชน <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="idCard" id="idCard" placeholder="กรุณากรอกรหัสบัตรประชาชน">
+                                                    <span class="help-block"><b class="font-red">*</b> กรณีเป็นคนไทย (Thai Only)</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">Passport Number <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="idPass" id="idPass" placeholder="Enter Passport Number">
+                                                    <span class="help-block"><b class="font-red">*</b> กรณีเป็นคนต่างชาติ (Foreigners Only)</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">ความสามารถด้านภาษา <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="language" id="language" class="form-control" placeholder="กรอกความสามารถด้านภาษา">
+                                                    <!-- <span class="help-block"><b class="font-red">*</b> กรณีเป็นคนต่างชาติ (Foreigners Only)</span> -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+ 
+                                    <div class="col-md-12" style="border-right: 2px dotted #eef1f5;">
+
+                                        <div class="row" style="margin-top: 15px;">
+                                            <div class="col-sm-3 text-right">
+                                                <span class="btn btn-circle default">3</span>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <h4 class="font" style="color: #2C3E50;">ข้อมูลติดต่อ</h4>
+                                            </div>
+                                        </div>
+                                        <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">เบอร์โทรติดต่อ <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="tel" id="tel" placeholder="กรุณากรอกเบอร์โทรติดต่อ">
+                                                    <!-- <span class="help-block"> A block of help text. </span> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">ที่อยู่ <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="address" id="address" placeholder="กรุณากรอกที่อยู่">
+                                                    <!-- <span class="help-block"><b class="font-red">*</b> กรุณาตั้งรหัสผ่านขั้นต่ำ 6 ตัวขึ้นไป</span> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label">จังหวัด <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <select class="form-control" name="province" id="province" onchange="showProvinces()">
+                                                        <option value="">-- เลือกจังหวัด --</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">อำเภอ / เขต <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <select class="form-control" name="amphoe" id="amphoe" onchange="showDistrict()">
+                                                        <option value="">-- เลือกอำเภอ --</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">ตำบล / แขวง <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <select class="form-control" name="district" id="district" onchange="showZipcode()">
+                                                        <option value="">-- เลือกตำบล --</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">รหัสไปรษณี <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="กรุณากรอกรหัสไปรษณี">
+                                                    <!-- <span class="help-block"><b class="font-red">*</b> กรุณาตั้งรหัสผ่านขั้นต่ำ 6 ตัวขึ้นไป</span> -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="margin-top: 15px;">
+                                            <div class="col-sm-3 text-right">
+                                                <span class="btn btn-circle default">4</span>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <h4 class="font" style="color: #2C3E50;">ข้อมูลบัตรประจำตัวไกด์</h4>
+                                            </div>
+                                        </div>
+                                        <div class="form-body font" style="border-bottom: 2px dotted #eef1f5;">
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">รูปบัตรประจำตัวไกด์ <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4 block_Gallery text-center">
+                                                    <img src="picture/img_cardguide/add_gallery.png" alt="add_gallery.png" style="width: 50%; margin: 10px;">
+                                                    <input type="file" class="form-control-file" style="border: unset;" name="filesAdd" id="filesAdd">
+                                                    <span class="help-block"><b class="font-red">*</b> เป็นสกุลภาพ .jpg .png เท่านั้น</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">เลขที่ <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="noGuide" id="noGuide" placeholder="กรุณากรอกเลขที่">
+                                                    <!-- <span class="help-block"> A block of help text. </span> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">ประเภทบัตร <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" name="typeGuide" id="typeGuide" placeholder="กรุณากรอกประเภทบัตร">
+                                                    <!-- <span class="help-block"><b class="font-red">*</b> กรุณาตั้งรหัสผ่านขั้นต่ำ 6 ตัวขึ้นไป</span> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" style="color: #2C3E50;">วันหมดอายุ <b class="font-red">*</b> :</label>
+                                                <div class="col-md-4">
+                                                    <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                        <input type="text" class="form-control" name="endGuide" id="endGuide" placeholder="กรุณากรอกวันหมดอายุบัตร">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="portlet-body" name="msgErrorNewdata" id="msgErrorNewdata"></div>
+                                
+                                <div class="row">
+                                    <div class="form-actions right font">
+                                        <!-- <button type="button" class="btn green" onclick="regGuide()">สมัครสมาชิก</button> -->
+                                        <button type="submit" class="btn green" value="upload">สมัครสมาชิก</button>
+                                        <button type="reset" class="btn default">ล้างค่า</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</body>
+
+<script>
+$(document).ready(function(){
+    showProvinces();
+});
+
+function showProvinces() {
+    var province = $('#province').val();
+    var url = "/register/getProvinces";
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            url: url,
+            success: function(json) {
+                var listProvinces = json;
+                var maxLoop = listProvinces.length;
+                for (var i=0 ; i < maxLoop; i++) {
+                    var province = listProvinces[i]['province'];
+                    var province_code = listProvinces[i]['province_code'];
+                        $('#province').append('<option value="'+province_code+'">'+province+'</option>');
+                }
+                showAmphoes();
+            },
+            error: function() {
+                console.log('package load failed...');
+            }
+        });
+}
+
+function showAmphoes() {
+    var province_code = $('#province').val();
+    var url = "/register/getAmphoes";
+    postData = {
+        'province_code' : province_code
+    };
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            url: url,
+            data: postData,
+            success: function(json) {
+                var listAmphoes = json;
+                var maxLoop = listAmphoes.length;
+                    $('#amphoe').empty();
+                    if ( !$('#amphoe').val() ) {
+                        $('#amphoe').append('<option value="">-- เลือกอำเภอ --</option>');
+                    }
+                    for (var i=0 ; i < maxLoop; i++) {
+                        var amphoe_code = listAmphoes[i]['amphoe_code'];
+                        var amphoe = listAmphoes[i]['amphoe'];
+                            $('#amphoe').append('<option value="'+amphoe_code+'">'+amphoe+'</option>');
+                    }
+                    showDistrict();
+            },
+            error: function() {
+                console.log('package load failed...');
+            }
+        });
+}
+
+function showDistrict() {
+    var amphoe_code = $('#amphoe').val();
+    var url = "/register/getDistrict";
+    postData = {
+        'amphoe_code' : amphoe_code
+    };
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            url: url,
+            data: postData,
+            success: function(json) {
+                var listDistrict = json;
+                var maxLoop = listDistrict.length;
+                    $('#district').empty();
+                        if ( !$('#district').val() ) {
+                            $('#district').append('<option value="">-- เลือกตำบล --</option>');
+                        }
+                    for (var i=0 ; i < maxLoop; i++) {
+                        var district_code = listDistrict[i]['district_code'];
+                        var district = listDistrict[i]['district'];
+                            $('#district').append('<option value="'+district_code+'">'+district+'</option>');
+                    }
+                    showZipcode();
+            },
+            error: function() {
+                console.log('package load failed...');
+            }
+        });
+}
+
+function showZipcode() {
+    var district_code = $('#district').val();
+    if ( district_code != "" ) {
+        var url = "/register/getZipcode";
+        postData = {
+            'district_code' : district_code
+        };
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                cache: false,
+                url: url,
+                data: postData,
+                success: function(data) {
+                    // var listZipcode = json;
+                    // var zipcode = listZipcode[0]['zipcode'];
+                        $('#zipcode').val(data);
+                },
+                error: function() {
+                    console.log('package load failed...');
+                }
+            });
+    }
+}
+
+function regGuide() {
+    var username = $('#username').val();
+    var password = $('#password').val();
+    var CFpassword = $('#CFpassword').val();
+    var email = $('#email').val();
+    var Th_Prefix = $('#Th_Prefix').val();
+    var fnameTh = $('#fnameTh').val();
+    var lnameTh = $('#lnameTh').val();
+    var En_Prefix = $('#En_Prefix').val();
+    var fnameEn = $('#fnameEn').val();
+    var lnameEn = $('#lnameEn').val();
+    var idCard = $('#idCard').val();
+    var idPass = $('#idPass').val();
+    var language = $('#language').val();
+    var tel = $('#tel').val();
+    var address = $('#address').val();
+    var district = $('#district').val();
+    var amphoe = $('#amphoe').val();
+    var province = $('#province').val();
+    var zipcode = $('#zipcode').val();
+    var filesAdd = $('#filesAdd').val();
+    var noGuide = $('#noGuide').val();
+    var typeGuide = $('#typeGuide').val();
+    var endGuide = $('#endGuide').val();
+    var filesAdd = $('#filesAdd').val();
+    var noGuide = $('#noGuide').val();
+    var typeGuide = $('#typeGuide').val();
+    var endGuide = $('#endGuide').val();
+
+    var url = '/register/addGuide';
+    var html = "" ;
+    var chkInput = 1;
+    var textShow = "";
+
+    // if ( username == "" && password == "" && CFpassword == "" ) { chkInput = 0; var textShow = 'กรุณากรอกข้อมูลให้ครบถ้วน'; }
+    // else if ( username == "" ) { chkInput = 0; var textShow = 'กรุณากรอก Username'; }
+    // else if ( password == "" ) { chkInput = 0; var textShow = 'กรุณากรอก Password'; }
+    // else if ( CFpassword == "" ) { chkInput = 0; var textShow = 'กรุณากรอก Password อีกครั้ง'; }
+    // else if ( password != CFpassword ) { chkInput = 0; var textShow = 'Password ไม่ตรงกัน'; }
+    // else if ( password != CFpassword ) { chkInput = 0; var textShow = 'Password ไม่ตรงกัน'; }
+    // else if ( email == "" ) { chkInput = 0; var textShow = 'กรุณากรอก E-mail อีกครั้ง'; }
+    // else if ( Th_Prefix == "" && En_Prefix == "" ) { chkInput = 0; var textShow = 'กรุณากรอก คำนำหน้านาม หรือ Name Title'; }
+    // else if ( fnameTh == "" && fnameEn == "" ) { chkInput = 0; var textShow = 'กรุณากรอก ชื่อ หรือ First name'; }
+    // else if ( lnameTh == "" && lnameEn == "" ) { chkInput = 0; var textShow = 'กรุณากรอก สกุล หรือ Last name'; }
+    // else if ( idCard == "" && idPass == "" ) { chkInput = 0; var textShow = 'กรุณากรอก รหัสบัตรประชาชน หรือ Passport Number'; }
+    // else if ( language == "" ) { chkInput = 0; var textShow = 'กรุณากรอก ความสามารถด้านภาษา'; }
+    // else if ( tel == "" ) { chkInput = 0; var textShow = 'กรุณากรอก เบอร์ติดต่อ'; }
+    // else if ( province == "" ) { chkInput = 0; var textShow = 'กรุณากรอก จังหวัด'; }
+    // else if ( filesAdd == "" ) { chkInput = 0; var textShow = 'กรุณาอัพรูปภาพ บัตรประจำตัวไกด์'; }
+    // else if ( noGuide == "" ) { chkInput = 0; var textShow = 'กรุณากรอก เลขประจำตัวไกด์'; }
+    // else if ( typeGuide == "" ) { chkInput = 0; var textShow = 'กรุณากรอก ประเภทบัตรไกด์'; }
+    // else if ( endGuide == "" ) { chkInput = 0; var textShow = 'กรุณากรอก วันหมดอายุบัตรไกด์'; }
+
+        if (chkInput == 0) {
+            html += '<div class="note note-danger">';
+                html += '<h5 class="block font"><b class="font-red">*</b> '+textShow+'</h5>';
+            html += '</div>';
+            $('#msgErrorNewdata').fadeOut('fast', function() {
+                $(this).html(html).fadeIn('slow');
+            });
+        } else {
+            $('#msgErrorNewdata').empty();
+                // console.log(filesAdd);
+    
+                // $("#filesAdd").uploadFile({
+                //     url:"/register/addPic",
+                //     fileName:"myfile"
+                // });
+        }
+}
+</script>
